@@ -1,5 +1,7 @@
 # Dotfiles
-These are my Dotfiles:
+These are my Dotfiles.
+
+Requirements: ansible, python, git
 
 Run it with:
 ```bash

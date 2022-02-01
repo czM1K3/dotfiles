@@ -1,11 +1,27 @@
 ---
-  - name: "Playing with Ansible and Git"
+  - name: "Link dotfiles"
     hosts: localhost
     connection: local 
     tasks:
-
-    - name: "just execute a ls -lrt command"
-      shell: "ls -lrt"
-      register: "output"
-
-    - debug: var=output.stdout_lines
+    - name: Create a symbolic link as currnet user
+      ansible.builtin.file:
+        src: '{{ playbook_dir }}/{{ item.src }}'
+        dest: '{{ item.dest }}'
+        state: link
+        force: true
+      loop:
+        - { src: 'vim/.vimrc', dest: '~/.vimrc' }
+        - { src: 'alacritty/alacritty.yml', dest: '~/.config/alacritty/alacritty.yml' }
+        - { src: 'starship/starship.toml', dest: '~/.config/starship.toml' }
+        - { src: 'fish/config.fish', dest: '~/.config/fish/config.fish' }
+    - name: Create a symbolic link as root
+      become: true
+      ansible.builtin.file:
+        src: '{{playbook_dir}}/{{ item.src }}'
+        dest: '{{ item.dest }}'
+        state: link
+        force: true
+      loop:
+        - { src: 'vim/.vimrc', dest: '~/.vimrc' }
+        - { src: 'starship/starship.toml', dest: '~/.config/starship.toml' }
+        - { src: 'fish/config.fish', dest: '~/.config/fish/config.fish' }

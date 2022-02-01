@@ -1,0 +1,42 @@
+add_newline = true
+
+format = """
+$env_var\
+$username\
+$hostname\
+$directory\
+$git_branch\
+$git_commit\
+$git_state\
+$git_metrics\
+$git_status\
+$character"""
+
+[env_var.STARSHIP_DISTRO]
+format = '[$env_value](bold white) '
+variable = "STARSHIP_DISTRO"
+disabled = false
+
+[username]
+style_user = "cyan"
+format = "[$user]($style)"
+disabled = false
+show_always = false
+
+[hostname]
+ssh_only = true
+format =  '[@](bold blue)[$hostname](bold cyan) '
+
+[directory]
+style = "bold white"
+truncation_symbol = "…/"
+
+[git_branch]
+format = '[\($branch\)]($style) '
+
+[git_status]
+ahead = '[↑\($count\)](fg:35)' # Green
+behind = '[↓\($count\)](fg:35)' # Green
+untracked = '[+\($count\)](fg:196)' # Red
+modified = '[+\($count\)](fg:202)' # Orange
+staged = '[+\($count\)](fg:26)' # Blue

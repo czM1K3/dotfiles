@@ -3,6 +3,14 @@
     hosts: localhost
     connection: local 
     tasks:
+    - name: Create a directories as current user
+      ansible.builtin.file:
+        path: '{{ item.path }}'
+        state: directory
+        recurse: true
+      loop:
+        - { path: "~/.config/alacritty" }
+        - { path: "~/.config/fish" }
     - name: Create a symbolic link as currnet user
       ansible.builtin.file:
         src: '{{ playbook_dir }}/{{ item.src }}'
@@ -14,6 +22,15 @@
         - { src: 'alacritty/alacritty.yml', dest: '~/.config/alacritty/alacritty.yml' }
         - { src: 'starship/starship.toml', dest: '~/.config/starship.toml' }
         - { src: 'fish/config.fish', dest: '~/.config/fish/config.fish' }
+
+    - name: Create a directories as root
+      become: true
+      ansible.builtin.file:
+        path: '{{ item.path }}'
+        state: directory
+        recurse: true
+      loop:
+        - { path: "~/.config/fish" }
     - name: Create a symbolic link as root
       become: true
       ansible.builtin.file:

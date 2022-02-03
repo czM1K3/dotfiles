@@ -12,6 +12,7 @@
         - { path: "~/.config/alacritty" }
         - { path: "~/.config/fish" }
         - { path: "~/.config/htop" }
+        - { path: "~/.config/nvim" }
     - name: Create a symbolic link as currnet user
       ansible.builtin.file:
         src: '{{ playbook_dir }}/{{ item.src }}'
@@ -24,6 +25,7 @@
         - { src: 'starship/starship.toml', dest: '~/.config/starship.toml' }
         - { src: 'fish/config.fish', dest: '~/.config/fish/config.fish' }
         - { src: 'htop/htoprc', dest: '~/.config/htop/htoprc' }
+        - { src: 'vim/.vimrc', dest: '~/.config/nvim/init.vim' }
 
     - name: Create a directories as root
       become: true
@@ -34,6 +36,7 @@
       loop:
         - { path: "~/.config/fish" }
         - { path: "~/.config/htop" }
+        - { path: "~/.config/nvim" }
     - name: Create a symbolic link as root
       become: true
       ansible.builtin.file:
@@ -46,3 +49,4 @@
         - { src: 'starship/starship.toml', dest: '~/.config/starship.toml' }
         - { src: 'fish/config.fish', dest: '~/.config/fish/config.fish' }
         - { src: 'htop/htoprc', dest: '~/.config/htop/htoprc' }
+        - { src: 'vim/.vimrc', dest: '~/.config/nvim/init.vim' }

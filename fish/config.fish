@@ -2,6 +2,10 @@ if status is-interactive
     # Commands to run in interactive sessions can go here
 end
 
+if command -sq nvim
+    alias vim="nvim"
+end
+
 set fish_greeting
 
 alias dockerstart "sudo systemctl start docker portainer"

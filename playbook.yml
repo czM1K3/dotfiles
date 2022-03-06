@@ -3,10 +3,9 @@
     hosts: localhost
     connection: local 
     tasks:
-      - name: "Check for installed packages"
-        package_facts:
-          manager: "auto"
-
+      - name: Check if alacritty is installed
+        stat: path=alacritty
+        register: path_alacritty
       - name: Link alacritty config
         block:
           - name: Make sure alacritty folder exists
@@ -20,8 +19,11 @@
               dest: ~/.config/alacritty/alacritty.yml
               state: link
               force: true
-        when: "'alacritty' in ansible_facts.packages"
+        when: path_alacritty.stat.exists == true
 
+      - name: Check if fish is installed
+        stat: path=fish
+        register: path_fish
       - name: Link fish config
         block:
           - name: Make sure fish folder exists
@@ -48,8 +50,11 @@
               dest: ~/.config/fish/config.fish
               state: link
               force: true
-        when: "'fish' in ansible_facts.packages"
+        when: path_fish.stat.exists == true
 
+      - name: Check if htop is installed
+        stat: path=htop
+        register: path_htop
       - name: Link htop config
         block:
           - name: Make sure htop folder exists
@@ -76,8 +81,11 @@
               dest: ~/.config/htop/htoprc
               state: link
               force: true
-        when: "'htop' in ansible_facts.packages"
+        when: path_htop.stat.exists == true
 
+      - name: Check if starship is installed
+        stat: path=starship
+        register: path_starship
       - name: Link starship config
         block:
           - name: Link starship config file
@@ -93,8 +101,11 @@
               dest: ~/.config/starship.toml
               state: link
               force: true
-        when: "'starship' in ansible_facts.packages"
+        when: path_starship.stat.exists == true
 
+      - name: Check if vim is installed
+        stat: path=vim
+        register: path_vim
       - name: Link vim config
         block:
           - name: Link vim config file
@@ -110,8 +121,11 @@
               dest: ~/.vimrc
               state: link
               force: true
-        when: "'vim' in ansible_facts.packages"
+        when: path_vim.stat.exists == true
 
+      - name: Check if neovim is installed
+        stat: path=/usr/bin/nvim
+        register: path_neovim
       - name: Link neovim config
         block:
           - name: Make sure neovim folder exists
@@ -138,5 +152,4 @@
               dest: ~/.config/nvim/init.vim
               state: link
               force: true
-        when: "'neovim' in ansible_facts.packages"
-        
+        when: path_neovim.stat.exists == true

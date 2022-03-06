@@ -3,153 +3,50 @@
     hosts: localhost
     connection: local 
     tasks:
-      - name: Check if alacritty is installed
-        stat: path=alacritty
-        register: path_alacritty
-      - name: Link alacritty config
-        block:
-          - name: Make sure alacritty folder exists
-            ansible.builtin.file:
-              path: ~/.config/alacritty
-              state: directory
-              recurse: true
-          - name: Link alacritty config file
-            ansible.builtin.file:
-              src: '{{ playbook_dir }}/alacritty/alacritty.yml'
-              dest: ~/.config/alacritty/alacritty.yml
-              state: link
-              force: true
-        when: path_alacritty.stat.exists == true
+    - name: Create a directories as current user
+      ansible.builtin.file:
+        path: '{{ item.path }}'
+        state: directory
+        recurse: true
+      loop:
+        - { path: "~/.config/alacritty" }
+        - { path: "~/.config/fish" }
+        - { path: "~/.config/htop" }
+        - { path: "~/.config/nvim" }
+    - name: Create a symbolic link as currnet user
+      ansible.builtin.file:
+        src: '{{ playbook_dir }}/{{ item.src }}'
+        dest: '{{ item.dest }}'
+        state: link
+        force: true
+      loop:
+        - { src: 'vim/.vimrc', dest: '~/.vimrc' }
+        - { src: 'alacritty/alacritty.yml', dest: '~/.config/alacritty/alacritty.yml' }
+        - { src: 'starship/starship.toml', dest: '~/.config/starship.toml' }
+        - { src: 'fish/config.fish', dest: '~/.config/fish/config.fish' }
+        - { src: 'htop/htoprc', dest: '~/.config/htop/htoprc' }
+        - { src: 'vim/.vimrc', dest: '~/.config/nvim/init.vim' }
 
-      - name: Check if fish is installed
-        stat: path=fish
-        register: path_fish
-      - name: Link fish config
-        block:
-          - name: Make sure fish folder exists
-            ansible.builtin.file:
-              path: ~/.config/fish
-              state: directory
-              recurse: true
-          - name: Link fish config file
-            ansible.builtin.file:
-              src: '{{ playbook_dir }}/fish/config.fish'
-              dest: ~/.config/fish/config.fish
-              state: link
-              force: true
-          - name: Make sure fish folder exists as a root
-            become: true
-            ansible.builtin.file:
-              path: ~/.config/fish
-              state: directory
-              recurse: true
-          - name: Link fish config file as a root
-            become: true
-            ansible.builtin.file:
-              src: '{{ playbook_dir }}/fish/config.fish'
-              dest: ~/.config/fish/config.fish
-              state: link
-              force: true
-        when: path_fish.stat.exists == true
-
-      - name: Check if htop is installed
-        stat: path=htop
-        register: path_htop
-      - name: Link htop config
-        block:
-          - name: Make sure htop folder exists
-            ansible.builtin.file:
-              path: ~/.config/htop
-              state: directory
-              recurse: true
-          - name: Link htop config file
-            ansible.builtin.file:
-              src: '{{ playbook_dir }}/htop/htoprc'
-              dest: ~/.config/htop/htoprc
-              state: link
-              force: true
-          - name: Make sure htop folder exists as a root
-            become: true
-            ansible.builtin.file:
-              path: ~/.config/htop
-              state: directory
-              recurse: true
-          - name: Link htop config file as a root
-            become: true
-            ansible.builtin.file:
-              src: '{{ playbook_dir }}/htop/htoprc'
-              dest: ~/.config/htop/htoprc
-              state: link
-              force: true
-        when: path_htop.stat.exists == true
-
-      - name: Check if starship is installed
-        stat: path=starship
-        register: path_starship
-      - name: Link starship config
-        block:
-          - name: Link starship config file
-            ansible.builtin.file:
-              src: '{{ playbook_dir }}/starship/starship.toml'
-              dest: ~/.config/starship.toml
-              state: link
-              force: true
-          - name: Link starship config file as a root
-            become: true
-            ansible.builtin.file:
-              src: '{{ playbook_dir }}/starship/starship.toml'
-              dest: ~/.config/starship.toml
-              state: link
-              force: true
-        when: path_starship.stat.exists == true
-
-      - name: Check if vim is installed
-        stat: path=vim
-        register: path_vim
-      - name: Link vim config
-        block:
-          - name: Link vim config file
-            ansible.builtin.file:
-              src: '{{ playbook_dir }}/vim/.vimrc'
-              dest: ~/.vimrc
-              state: link
-              force: true
-          - name: Link vim config file as a root
-            become: true
-            ansible.builtin.file:
-              src: '{{ playbook_dir }}/vim/.vimrc'
-              dest: ~/.vimrc
-              state: link
-              force: true
-        when: path_vim.stat.exists == true
-
-      - name: Check if neovim is installed
-        stat: path=/usr/bin/nvim
-        register: path_neovim
-      - name: Link neovim config
-        block:
-          - name: Make sure neovim folder exists
-            ansible.builtin.file:
-              path: ~/.config/nvim
-              state: directory
-              recurse: true
-          - name: Link neovim config file
-            ansible.builtin.file:
-              src: '{{ playbook_dir }}/vim/.vimrc'
-              dest: ~/.config/nvim/init.vim
-              state: link
-              force: true
-          - name: Make sure neovim folder exists as a root
-            become: true
-            ansible.builtin.file:
-              path: ~/.config/nvim
-              state: directory
-              recurse: true
-          - name: Link neovim config file as a root
-            become: true
-            ansible.builtin.file:
-              src: '{{ playbook_dir }}/vim/.vimrc'
-              dest: ~/.config/nvim/init.vim
-              state: link
-              force: true
-        when: path_neovim.stat.exists == true
+    - name: Create a directories as root
+      become: true
+      ansible.builtin.file:
+        path: '{{ item.path }}'
+        state: directory
+        recurse: true
+      loop:
+        - { path: "~/.config/fish" }
+        - { path: "~/.config/htop" }
+        - { path: "~/.config/nvim" }
+    - name: Create a symbolic link as root
+      become: true
+      ansible.builtin.file:
+        src: '{{playbook_dir}}/{{ item.src }}'
+        dest: '{{ item.dest }}'
+        state: link
+        force: true
+      loop:
+        - { src: 'vim/.vimrc', dest: '~/.vimrc' }
+        - { src: 'starship/starship.toml', dest: '~/.config/starship.toml' }
+        - { src: 'fish/config.fish', dest: '~/.config/fish/config.fish' }
+        - { src: 'htop/htoprc', dest: '~/.config/htop/htoprc' }
+        - { src: 'vim/.vimrc', dest: '~/.config/nvim/init.vim' }

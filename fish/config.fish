@@ -40,6 +40,10 @@ switch $_distro
         set -x STARSHIP_DISTRO ""
     case '*rhel*'
         set -x STARSHIP_DISTRO ""
+    case '*cent*'
+        set -x STARSHIP_DISTRO ""
+    case '*rocky*'
+        set -x STARSHIP_DISTRO ""
     case '*ubuntu*'
         set -x STARSHIP_DISTRO ""
     case '*'

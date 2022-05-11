@@ -13,6 +13,7 @@
         - { path: "~/.config/fish" }
         - { path: "~/.config/htop" }
         - { path: "~/.config/nvim" }
+        - { path: "~/.config/touchegg" }
     - name: Create a symbolic link as currnet user
       ansible.builtin.file:
         src: '{{ playbook_dir }}/{{ item.src }}'
@@ -26,6 +27,7 @@
         - { src: 'fish/config.fish', dest: '~/.config/fish/config.fish' }
         - { src: 'htop/htoprc', dest: '~/.config/htop/htoprc' }
         - { src: 'vim/.vimrc', dest: '~/.config/nvim/init.vim' }
+        - { src: 'touchegg/touchegg.conf', dest: '~/.config/touchegg/touchegg.conf'}
 
     - name: Create a directories as root
       become: true

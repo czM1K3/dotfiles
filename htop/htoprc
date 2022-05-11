@@ -3,6 +3,13 @@
 htop_version=3.2.0
 config_reader_min_version=3
 fields=0 48 17 18 38 39 40 2 46 47 49 1
+<<<<<<< HEAD
+=======
+sort_key=1
+sort_direction=1
+tree_sort_key=0
+tree_sort_direction=1
+>>>>>>> refs/remotes/origin/master
 hide_kernel_threads=1
 hide_userland_threads=1
 shadow_other_users=0

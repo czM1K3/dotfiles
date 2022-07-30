@@ -11,7 +11,7 @@ set fish_greeting
 alias dockerstart "sudo systemctl start docker portainer"
 alias dockerstop "sudo systemctl stop docker portainer"
 
-alias c="code ."
+alias c="codium ."
 
 alias ubuntu "docker run --rm -it ubuntu:20.04 bash"
 

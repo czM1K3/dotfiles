@@ -14,6 +14,7 @@
         - { path: "~/.config/htop" }
         - { path: "~/.config/nvim" }
         - { path: "~/.config/touchegg" }
+        - { path: "~/.local/bin" }
     - name: Create a symbolic link as currnet user
       ansible.builtin.file:
         src: '{{ playbook_dir }}/{{ item.src }}'

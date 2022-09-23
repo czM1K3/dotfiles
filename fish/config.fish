@@ -6,6 +6,8 @@ if command -sq nvim
     alias vim="nvim"
 end
 
+fish_add_path ~/.local/bin
+
 set fish_greeting
 
 alias dockerstart "sudo systemctl start docker portainer"

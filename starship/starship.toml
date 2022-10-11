@@ -15,6 +15,7 @@ $git_status\
 $c\
 $golang\
 $java\
+$dart\
 $nodejs\
 $rust\
 [ ](fg:#c4a800)\
@@ -69,6 +70,11 @@ format = '[ $symbol ($version) ]($style)'
 
 [java]
 symbol = " "
+style = "bg:#c4a800 fg:#ffffff"
+format = '[ $symbol ($version) ]($style)'
+
+[dart]
+symbol = " "
 style = "bg:#c4a800 fg:#ffffff"
 format = '[ $symbol ($version) ]($style)'
 

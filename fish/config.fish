@@ -10,12 +10,12 @@ fish_add_path ~/.local/bin
 
 set fish_greeting
 
-alias dockerstart "sudo systemctl start docker portainer"
-alias dockerstop "sudo systemctl stop docker portainer"
+alias dockerstart "sudo systemctl start docker"
+alias dockerstop "sudo systemctl stop docker"
 
 alias c="codium ."
 
-alias ubuntu "docker run --rm -it ubuntu:20.04 bash"
+alias ubuntu "docker run --rm -it ubuntu:22.04 bash"
 
 set _distro (awk '/^ID=/' /etc/*-release | awk -F'=' '{ print tolower($2) }')
 
@@ -48,6 +48,8 @@ switch $_distro
         set -x STARSHIP_DISTRO ""
     case '*ubuntu*'
         set -x STARSHIP_DISTRO ""
+    case '*pop*'
+        set -x STARSHIP_DISTRO ""
     case '*'
         set -x STARSHIP_DISTRO ""
 end

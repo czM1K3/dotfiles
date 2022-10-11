@@ -29,7 +29,7 @@ powershell_indicator = ""
 disabled = false
 
 [env_var.STARSHIP_DISTRO]
-format = '[$env_value ](bg:#2d3436 fg:#ffffff)'
+format = '[$env_value ](bg:#2d3436 fg:#ffffff)'
 variable = "STARSHIP_DISTRO"
 disabled = false
 
@@ -41,49 +41,49 @@ format = '[$user]($style fg:#ffffff)'
 
 [hostname]
 ssh_only = true
-format =  '[@$hostname ](bg:#2d3436 fg:#ffffff)'
+format =  '[@$hostname ](bg:#2d3436 fg:#ffffff)'
 
 [directory]
 style = "bg:#3859a6 fg:#ffffff"
-format = "[ $path ]($style)"
+format = "[ $path ]($style)"
 truncation_length = 3
 truncation_symbol = "…/"
 
 [git_branch]
 symbol = ""
 style = "bg:#05aa00 fg:#ffffff"
-format = '[ $symbol $branch ]($style)'
+format = '[ $symbol $branch ]($style)'
 
 [git_status]
 style = "bg:#05aa00 fg:#ffffff"
-format = '[$all_status$ahead_behind ]($style)'
+format = '[$all_status$ahead_behind ]($style)'
 
 [c]
 symbol = " "
 style = "bg:#c4a800 fg:#ffffff"
-format = '[ $symbol ($version) ]($style)'
+format = '[ $symbol ($version) ]($style)'
 
 [golang]
 symbol = " "
 style = "bg:#c4a800 fg:#ffffff"
-format = '[ $symbol ($version) ]($style)'
+format = '[ $symbol ($version) ]($style)'
 
 [java]
 symbol = " "
 style = "bg:#c4a800 fg:#ffffff"
-format = '[ $symbol ($version) ]($style)'
+format = '[ $symbol ($version) ]($style)'
 
 [dart]
 symbol = " "
 style = "bg:#c4a800 fg:#ffffff"
-format = '[ $symbol ($version) ]($style)'
+format = '[ $symbol ($version) ]($style)'
 
 [nodejs]
 symbol = ""
 style = "bg:#c4a800 fg:#ffffff"
-format = '[ $symbol ($version) ]($style)'
+format = '[ $symbol ($version) ]($style)'
 
 [rust]
 symbol = ""
 style = "bg:#c4a800 fg:#ffffff"
-format = '[ $symbol ($version) ]($style)'
+format = '[ $symbol ($version) ]($style)'

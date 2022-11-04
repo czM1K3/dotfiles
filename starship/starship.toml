@@ -45,7 +45,8 @@ format =  '[@$hostname ](bg:#2d3436 fg:#ffffff)'
 
 [directory]
 style = "bg:#3859a6 fg:#ffffff"
-format = "[ $path ]($style)"
+read_only = ""
+format = "[ $read_only$path ]($style)"
 truncation_length = 3
 truncation_symbol = "…/"
 

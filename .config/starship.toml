@@ -1,0 +1,90 @@
+add_newline = true
+
+format = """
+[](#2d3436)\
+$shell\
+$env_var\
+$username\
+$hostname\
+[](bg:#3859a6 fg:#2d3436)\
+$directory\
+[](fg:#3859a6 bg:#05aa00)\
+$git_branch\
+$git_status\
+[](fg:#05aa00 bg:#c4a800)\
+$c\
+$golang\
+$java\
+$dart\
+$nodejs\
+$rust\
+[ ](fg:#c4a800)\
+"""
+
+[shell]
+format = '[$indicator ](bg:#2d3436 fg:#ffffff)'
+bash_indicator = ""
+fish_indicator = "󰈺"
+powershell_indicator = ""
+disabled = false
+
+[env_var.STARSHIP_DISTRO]
+format = '[$env_value ](bg:#2d3436 fg:#ffffff)'
+variable = "STARSHIP_DISTRO"
+disabled = false
+
+[username]
+show_always = false
+style_user = "bg:#2d3436"
+style_root = "bg:#2d3436"
+format = '[$user]($style fg:#ffffff)'
+
+[hostname]
+ssh_only = true
+format =  '[@$hostname ](bg:#2d3436 fg:#ffffff)'
+
+[directory]
+style = "bg:#3859a6 fg:#ffffff"
+read_only = ""
+format = "[ $read_only$path ]($style)"
+truncation_length = 3
+truncation_symbol = "…/"
+
+[git_branch]
+symbol = ""
+style = "bg:#05aa00 fg:#ffffff"
+format = '[ $symbol $branch ]($style)'
+
+[git_status]
+style = "bg:#05aa00 fg:#ffffff"
+format = '[$all_status$ahead_behind ]($style)'
+
+[c]
+symbol = " "
+style = "bg:#c4a800 fg:#ffffff"
+format = '[ $symbol ($version) ]($style)'
+
+[golang]
+symbol = " "
+style = "bg:#c4a800 fg:#ffffff"
+format = '[ $symbol ($version) ]($style)'
+
+[java]
+symbol = " "
+style = "bg:#c4a800 fg:#ffffff"
+format = '[ $symbol ($version) ]($style)'
+
+[dart]
+symbol = " "
+style = "bg:#c4a800 fg:#ffffff"
+format = '[ $symbol ($version) ]($style)'
+
+[nodejs]
+symbol = ""
+style = "bg:#c4a800 fg:#ffffff"
+format = '[ $symbol ($version) ]($style)'
+
+[rust]
+symbol = ""
+style = "bg:#c4a800 fg:#ffffff"
+format = '[ $symbol ($version) ]($style)'

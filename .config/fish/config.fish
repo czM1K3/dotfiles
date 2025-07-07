@@ -17,7 +17,7 @@ if command -sq lazygit
     alias lg "lazygit"
 end
 
-# set fish_greeting
+set fish_greeting
 
 alias dockerstart "sudo systemctl start docker"
 alias dockerstop "sudo systemctl stop docker"

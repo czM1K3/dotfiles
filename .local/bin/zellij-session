@@ -1,0 +1,18 @@
+#!/usr/bin/bash
+
+list="$(zellij list-sessions --no-formatting 2>/dev/null)"
+
+if [[ -z $list ]]; then
+	exec zellij
+fi
+
+output="$(echo "$list" | fzf)"
+
+if [[ -z $output ]]; then
+	exec zellij
+fi
+
+session="$(echo $output | cut -d ' ' -f 1)"
+
+exec zellij attach "$session"
+

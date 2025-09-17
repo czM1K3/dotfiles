@@ -1,0 +1,6 @@
+Config(
+  prefix: "",
+  command: "codium --enable-features=UseOzonePlatform,WaylandWindowDecorations --ozone-platform=wayland",
+  icon: "vscodium",
+  path: "~/.config/VSCodium",
+)

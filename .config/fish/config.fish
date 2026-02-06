@@ -8,9 +8,9 @@ end
 
 #fish_add_path ~/.local/bin
 
-if command -sq exa
-    alias ls "exa"
-    alias ll "exa -la"
+if command -sq eza
+    alias ls "eza"
+    alias ll "eza -la"
 end
 
 if command -sq lazygit

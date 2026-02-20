@@ -27,12 +27,69 @@
    "providers": {
       "applications": {
          "preferences": {
+            "defaultAction": "launch",
             "paths": [
                "/home/michal/.local/share/applications",
                "/home/michal/.local/share/flatpak/exports/share/applications",
                "/var/lib/flatpak/exports/share/applications",
                "/usr/share/applications"
             ]
+         },
+         "entrypoints": {
+            "in.lsp_plug.lsp_plugins_chorus_mono": {
+               "enabled": false
+            },
+            "in.lsp_plug.lsp_plugins_chorus_stereo": {
+               "enabled": false
+            },
+            "in.lsp_plug.lsp_plugins_matcher_mono": {
+               "enabled": false
+            },
+            "in.lsp_plug.lsp_plugins_matcher_stereo": {
+               "enabled": false
+            },
+            "in.lsp_plug.lsp_plugins_mb_ringmod_sc_mono": {
+               "enabled": false
+            },
+            "in.lsp_plug.lsp_plugins_mb_ringmod_sc_stereo": {
+               "enabled": false
+            },
+            "in.lsp_plug.lsp_plugins_phaser_mono": {
+               "enabled": false
+            },
+            "in.lsp_plug.lsp_plugins_phaser_stereo": {
+               "enabled": false
+            },
+            "in.lsp_plug.lsp_plugins_referencer_mono": {
+               "enabled": false
+            },
+            "in.lsp_plug.lsp_plugins_referencer_stereo": {
+               "enabled": false
+            },
+            "in.lsp_plug.lsp_plugins_return_mono": {
+               "enabled": false
+            },
+            "in.lsp_plug.lsp_plugins_return_stereo": {
+               "enabled": false
+            },
+            "in.lsp_plug.lsp_plugins_ringmod_sc_mono": {
+               "enabled": false
+            },
+            "in.lsp_plug.lsp_plugins_ringmod_sc_stereo": {
+               "enabled": false
+            },
+            "in.lsp_plug.lsp_plugins_sc_matcher_mono": {
+               "enabled": false
+            },
+            "in.lsp_plug.lsp_plugins_sc_matcher_stereo": {
+               "enabled": false
+            },
+            "in.lsp_plug.lsp_plugins_send_mono": {
+               "enabled": false
+            },
+            "in.lsp_plug.lsp_plugins_send_stereo": {
+               "enabled": false
+            }
          }
       },
       "browser-extension": {
@@ -45,7 +102,12 @@
          "enabled": false
       },
       "system": {
-         "enabled": false
+         "enabled": false,
+         "entrypoints": {
+            "run": {
+               "enabled": true
+            }
+         }
       },
       "wm": {
          "enabled": false

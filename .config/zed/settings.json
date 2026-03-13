@@ -7,10 +7,10 @@
 // custom settings, run the `open default settings` command
 // from the command palette or from `Zed` application menu.
 {
-  "icon_theme": "Material Icon Theme",
-  "features": {
-    "edit_prediction_provider": "none"
+  "edit_predictions": {
+    "provider": "none"
   },
+  "icon_theme": "Material Icon Theme",
   "theme": "czM1K3 custom theme",
   "ui_font_size": 16,
   "ui_font_family": "FiraCode Nerd Font",

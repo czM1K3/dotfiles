@@ -24,7 +24,29 @@
    "launcher_window": {
       "opacity": 0.92
    },
+   "favorites": [
+      "applications:helium",
+      "applications:com.github.wwmm.easyeffects"
+   ],
    "providers": {
+      "@ShyAssassin/store.vicinae.vscode-recents": {
+         "preferences": {
+            "vscodeFlavour": "VSCodium"
+         }
+      },
+      "@czM1K3/zed-recent-projects": {
+         "preferences": {
+            "zedExecutable": "zeditor"
+         }
+      },
+      "@gebeto/store.raycast.translate": {
+         "preferences": {
+            "autoInput": false,
+            "defaultAction": "copy",
+            "lang1": "auto",
+            "lang2": "en"
+         }
+      },
       "applications": {
          "preferences": {
             "defaultAction": "launch",
@@ -96,7 +118,7 @@
          "enabled": false
       },
       "developer": {
-         "enabled": false
+         "enabled": true
       },
       "files": {
          "enabled": false

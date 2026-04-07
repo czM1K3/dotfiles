@@ -26,6 +26,7 @@
    },
    "favorites": [
       "applications:helium",
+      "applications:obsidian",
       "applications:com.github.wwmm.easyeffects"
    ],
    "providers": {

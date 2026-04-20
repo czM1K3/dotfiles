@@ -15,6 +15,10 @@ end
 
 if command -sq lazygit
     alias lg "lazygit"
+    if command -sq fzf
+        and command -sq onefetch
+        alias lgf "zoxide query -l | fzf --height 40% --reverse --header 'Select path to print' --preview 'gitfetch {1}' | xargs -r lazygit -p"
+    end
 end
 
 set fish_greeting

@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+
+if [ "$#" = 1 ]; then
+	cd "$1"
+fi
+
+if [ -d .git ]; then
+	onefetch --no-art
+else
+	echo "There is no git"
+fi
+

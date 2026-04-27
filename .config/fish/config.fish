@@ -28,6 +28,7 @@ alias dockerstop "sudo systemctl stop docker"
 
 alias c="codium ."
 alias zz="zeditor ."
+alias zzz="zeditor . && exit"
 
 # alias ubuntu "docker run --rm -it ubuntu:22.04 bash"
 

@@ -21,44 +21,63 @@ hl.on("hyprland.start", function()
     hl.exec_cmd("vicinae server")
     hl.exec_cmd("hyprpaper")
     if isDesktop then
-        hl.timer(function ()
+        hl.timer(function()
             hl.exec_cmd("spotify-launcher")
         end, { timeout = 4000, type = "oneshot" })
-        hl.timer(function ()
+        hl.timer(function()
             hl.exec_cmd("env GDK_BACKEND=x11 thunderbird", { workspace = "special silent" })
         end, { timeout = 8000, type = "oneshot" })
     end
     if isRyzenekNew then
         hl.exec_cmd("easyeffects --gapplication-service")
-        hl.timer(function ()
+        hl.timer(function()
             hl.dispatch(hl.dsp.cursor.move({ x = 2880, y = 540 }))
         end, { timeout = 300, type = "oneshot" })
-        hl.timer(function ()
+        hl.timer(function()
             hl.exec_cmd("solaar --window=hide")
         end, { timeout = 3000, type = "oneshot" })
-        hl.timer(function ()
+        hl.timer(function()
             hl.exec_cmd("~/AppImages/openrgb.appimage --startminimized")
         end, { timeout = 7000, type = "oneshot" })
     end
+    if isRyzenekOld then
+        hl.exec_cmd("~/.autostart")
+    end
 end)
 
-hl.monitor({
-    output   = "DP-1",
-    mode     = "1920x1080@144",
-    position = "1920x0",
-    scale    = "1",
-    bitdepth = 10,
-})
-hl.monitor({
-    output   = "DP-2",
-    mode     = "1920x1080@60",
-    position = "0x0",
-    scale    = "1",
-})
-hl.monitor({
-    output   = "HDMI-A-1",
-    disabled = true
-})
+if isRyzenekNew then
+    hl.monitor({
+        output   = "DP-1",
+        mode     = "1920x1080@144",
+        position = "1920x0",
+        scale    = "1",
+        bitdepth = 10,
+    })
+    hl.monitor({
+        output   = "DP-2",
+        mode     = "1920x1080@60",
+        position = "0x0",
+        scale    = "1",
+    })
+    hl.monitor({
+        output   = "HDMI-A-1",
+        disabled = true
+    })
+end
+if isRyzenekOld then
+    hl.monitor({
+        output = "HDMI-A-2",
+        mode = "2560x1440@60",
+        position = "0x0",
+        scale = 1,
+    })
+    hl.monitor({
+        output = "android",
+        mode = "2304x1440@60",
+        position = "1800x1440",
+        scale = 2,
+    })
+end
 
 hl.config({
     input = {
@@ -125,7 +144,7 @@ hl.config({
     cursor = {
         no_break_fs_vrr = 2,
         min_refresh_rate = 48,
-        default_monitor = "DP-1",
+        enable_hyprcursor = true,
     },
 })
 
@@ -197,16 +216,18 @@ hl.layer_rule({
     ignore_alpha = 0,
 })
 
-hl.workspace_rule({
-    workspace = "1",
-    monitor = "DP-1",
-    default = true,
-})
-hl.workspace_rule({
-    workspace = "5",
-    monitor = "DP-2",
-    default = true,
-})
+if isRyzenekNew then
+    hl.workspace_rule({
+        workspace = "1",
+        monitor = "DP-1",
+        default = true,
+    })
+    hl.workspace_rule({
+        workspace = "5",
+        monitor = "DP-2",
+        default = true,
+    })
+end
 
 -- Smart gaps
 hl.workspace_rule({ workspace = "w[tv1]s[false]", gaps_out = 0, gaps_in = 0 })
@@ -323,7 +344,7 @@ hl.bind(mainMod .. shiftMod .. "F", function()
     hl.dispatch(hl.dsp.window.fullscreen())
     hl.dispatch(hl.dsp.send_shortcut({ mods = "CTRL + ALT", key = "code:54" })) -- 54 is "c"
 end)
--- hl.bind(mainMod .. "L", hl.dsp.exec_cmd("hyprlock"))
+hl.bind(mainMod .. "L", hl.dsp.exec_cmd("hyprlock"))
 hl.bind(mainMod .. "ESCAPE", hl.dsp.exec_cmd("wlogout --protocol layer-shell -b 6 -T 400 -B 400"))
 -- hl.bind(mainMod .. "P", hl.dsp.exec_cmd("/home/michal/.local/bin/hyprfreeze"))
 hl.bind(mainMod .. "SEMICOLON", hl.dsp.exec_cmd("~/.local/bin/music-swap"))
@@ -332,6 +353,10 @@ if isRyzenekNew then
     hl.bind(mainMod .. "F10", hl.dsp.exec_cmd("ddcutil --enable-dynamic-sleep -d 1 setvcp 10 + 34"))
     hl.bind(mainMod .. "F11", hl.dsp.exec_cmd("ddcutil --enable-dynamic-sleep -d 2 setvcp 10 - 34"))
     hl.bind(mainMod .. "F12", hl.dsp.exec_cmd("ddcutil --enable-dynamic-sleep -d 2 setvcp 10 + 34"))
+end
+if isRyzenekOld then
+    hl.bind(mainMod .. "F9", hl.dsp.exec_cmd("ddcutil --enable-dynamic-sleep -d 1 setvcp 10 - 34"))
+    hl.bind(mainMod .. "F10", hl.dsp.exec_cmd("ddcutil --enable-dynamic-sleep -d 1 setvcp 10 + 34"))
 end
 
 hl.bind("XF86AudioRaiseVolume", hl.dsp.exec_cmd("swayosd-client --output-volume raise"),
@@ -388,4 +413,4 @@ hl.bind(mainMod .. "mouse_up", hl.dsp.focus({ workspace = "e-1" }))
 hl.bind(mainMod .. "mouse:272", hl.dsp.window.drag(), { mouse = true })
 hl.bind(mainMod .. "mouse:273", hl.dsp.window.resize(), { mouse = true })
 
-hl.bind(mainMod .. shiftMod .. "Q", hl.dsp.exec_cmd("gedit", { workspace = "special:spotify silent" }))
+-- hl.bind(mainMod .. shiftMod .. "Q", hl.dsp.exec_cmd("gedit", { workspace = "special:spotify silent" }))

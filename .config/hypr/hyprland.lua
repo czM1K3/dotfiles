@@ -12,7 +12,6 @@ hl.on("hyprland.start", function()
     hl.exec_cmd("/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1")
     hl.exec_cmd("/usr/lib/pam_kwallet_init")
     hl.exec_cmd("wlsunset -l 49.75 -L 16.47 -t 5000 -d 1800")
-    hl.exec_cmd("ags run -d ~/.dotfiles/ags")
     hl.exec_cmd("nm-applet --indicator")
     hl.exec_cmd("swayosd-server")
     -- hl.exec_cmd("udiskie --no-automount --no-notify --tray")
@@ -21,6 +20,7 @@ hl.on("hyprland.start", function()
     hl.exec_cmd("vicinae server")
     hl.exec_cmd("hyprpaper")
     if isDesktop then
+        hl.exec_cmd("ags run -d ~/.dotfiles/ags")
         hl.timer(function()
             hl.exec_cmd("spotify-launcher")
         end, { timeout = 4000, type = "oneshot" })
@@ -42,6 +42,10 @@ hl.on("hyprland.start", function()
     end
     if isRyzenekOld then
         hl.exec_cmd("~/.autostart")
+    end
+    if isThinkpad then
+        hl.exec_cmd("ags run")
+        -- hl.exec_cmd("~/.autostart")
     end
 end)
 
@@ -78,6 +82,14 @@ if isRyzenekOld then
         scale = 2,
     })
 end
+if isThinkpad then
+    hl.monitor({
+        output = "eDP-1",
+        mode = "1920x1080@60",
+        position = "0x0",
+        scale = 1,
+	})
+end
 
 hl.config({
     input = {
@@ -85,7 +97,7 @@ hl.config({
         kb_variant = "coder, qwerty",
         kb_options = "grp:win_space_toggle",
         follow_mouse = true,
-        sensitivity = -0.5,
+        sensitivity = 0,
         numlock_by_default = true,
         touchpad = {
             natural_scroll = true,
@@ -148,6 +160,14 @@ hl.config({
     },
 })
 
+if isDesktop then
+    hl.config({
+        input = {
+            sensitivity = -0.5,
+        },
+    })
+end
+
 hl.curve("myBezier", { type = "bezier", points = { { 0.05, 0.9 }, { 0.1, 1.05 } } })
 hl.animation({ leaf = "global", enabled = true, speed = 10, bezier = "default" })
 hl.animation({ leaf = "windows", enabled = true, speed = 7, bezier = "myBezier" })
@@ -164,6 +184,11 @@ hl.device({
 hl.device({
     name = "dualsense-wireless-controller-touchpad",
     enabled = false,
+})
+hl.device({
+    name = "tpps/2-elan-trackpoint",
+    sensitivity = -0.2,
+    accel_profile = "flat",
 })
 
 hl.env("HYPRCURSOR_THEME", "Bibata-Modern-Classic")
@@ -313,6 +338,32 @@ hl.window_rule({
     move = { "(monitor_w-window_w-1)", "(monitor_h-window_h-1)" },
 })
 
+hl.gesture({
+    fingers = 3,
+    direction = "horizontal",
+    action = "workspace",
+})
+hl.gesture({
+    fingers = 3,
+    direction = "up",
+    action = "fullscreen",
+})
+hl.gesture({
+    fingers = 3,
+    direction = "down",
+    action = "float",
+})
+hl.gesture({
+    fingers = 4,
+    direction = "swipe",
+    action = "resize",
+})
+hl.gesture({
+    fingers = 3,
+    direction = "pinchout",
+    action = "close",
+})
+
 local mainMod = "SUPER + "
 local shiftMod = "SHIFT + "
 local altMod = "ALT + "
@@ -365,11 +416,11 @@ hl.bind("XF86AudioLowerVolume", hl.dsp.exec_cmd("swayosd-client --output-volume 
     { locked = true, repeating = true, ignore_mods = true, })
 hl.bind("XF86AudioMute", hl.dsp.exec_cmd("swayosd-client --output-volume mute-toggle"),
     { locked = true, ignore_mods = true, })
-hl.bind("XF86AudioMicMute", hl.dsp.exec_cmd("swayosd-client --output-volume mute-toggle"),
+hl.bind("XF86AudioMicMute", hl.dsp.exec_cmd("swayosd-client --input-volume mute-toggle"),
     { locked = true, ignore_mods = true, })
--- hl.bind("XF86MonBrightnessUp", hl.dsp.exec_cmd(""), { locked = true, repeating = true, ignore_mods = true, })
--- hl.bind("XF86MonBrightnessDown", hl.dsp.exec_cmd(""), { locked = true, repeating = true, ignore_mods = true, })
-hl.bind("Caps_Lock", hl.dsp.exec_cmd("swayosd-client --caps-lock"), { locked = true, ignore_mods = true, })
+hl.bind("XF86MonBrightnessUp", hl.dsp.exec_cmd("swayosd-client --brightness raise"), { locked = true, repeating = true, ignore_mods = true, })
+hl.bind("XF86MonBrightnessDown", hl.dsp.exec_cmd("swayosd-client --brightness lower"), { locked = true, repeating = true, ignore_mods = true, })
+-- hl.bind("Caps_Lock", hl.dsp.exec_cmd("swayosd-client --caps-lock"), { locked = true, ignore_mods = true, })
 hl.bind(mainMod .. "SLASH", hl.dsp.exec_cmd("waybar-mpris --send toggle || playerctl play-pause"))
 hl.bind("XF86AudioPlay", hl.dsp.exec_cmd("waybar-mpris --send toggle || playerctl play-pause"),
     { locked = true, repeating = true, ignore_mods = true, })
@@ -378,7 +429,12 @@ hl.bind("XF86AudioNext", hl.dsp.exec_cmd("waybar-mpris --send next || playerctl 
     { locked = true, repeating = true, ignore_mods = true, })
 hl.bind(mainMod .. "COMMA", hl.dsp.exec_cmd("waybar-mpris --send prev || playerctl previous"))
 hl.bind("XF86AudioPrev", hl.dsp.exec_cmd("waybar-mpris --send prev || playerctl previous"),
+    { locked = true, repeating = true, ignore_mods = true })
+hl.bind("XF86Tools", hl.dsp.exec_cmd("blueberry"), { locked = true, repeating = true, ignore_mods = true, })
+hl.bind("XF86Favorites", hl.dsp.exec_cmd("spotify-launcher"),
     { locked = true, repeating = true, ignore_mods = true, })
+hl.bind("XF86Calculator", hl.dsp.exec_cmd("mathematica"), { locked = true, repeating = true, ignore_mods = true, })
+
 
 hl.bind(mainMod .. "A", hl.dsp.focus({ direction = "left" }))
 hl.bind(mainMod .. "D", hl.dsp.focus({ direction = "right" }))

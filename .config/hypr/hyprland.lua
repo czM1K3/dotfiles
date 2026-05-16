@@ -99,6 +99,7 @@ hl.config({
         kb_options = "grp:win_space_toggle",
         follow_mouse = true,
         sensitivity = 0,
+        accel_profile = "flat",
         numlock_by_default = true,
         touchpad = {
             natural_scroll = true,
@@ -161,7 +162,7 @@ hl.config({
     },
 })
 
-if isDesktop then
+if isRyzenekNew then
     hl.config({
         input = {
             sensitivity = -0.5,
@@ -396,7 +397,7 @@ hl.bind(mainMod .. shiftMod .. "F", function()
     hl.dispatch(hl.dsp.window.fullscreen())
     hl.dispatch(hl.dsp.send_shortcut({ mods = "CTRL + ALT", key = "code:54" })) -- 54 is "c"
 end)
-hl.bind(mainMod .. "L", hl.dsp.exec_cmd("hyprlock"))
+hl.bind(mainMod .. "N", hl.dsp.exec_cmd("hyprlock"))
 hl.bind(mainMod .. "ESCAPE", hl.dsp.exec_cmd("wlogout --protocol layer-shell -b 6 -T 400 -B 400"))
 -- hl.bind(mainMod .. "P", hl.dsp.exec_cmd("/home/michal/.local/bin/hyprfreeze"))
 hl.bind(mainMod .. "SEMICOLON", hl.dsp.exec_cmd("~/.local/bin/music-swap"))
@@ -447,10 +448,37 @@ hl.bind(mainMod .. shiftMod .. "D", hl.dsp.window.swap({ direction = "right" }))
 hl.bind(mainMod .. shiftMod .. "W", hl.dsp.window.swap({ direction = "up" }))
 hl.bind(mainMod .. shiftMod .. "S", hl.dsp.window.swap({ direction = "down" }))
 
-hl.bind(mainMod .. "left", hl.dsp.window.resize({ x = -20, y = 0, relative = true, }), { repeating = true, })
-hl.bind(mainMod .. "right", hl.dsp.window.resize({ x = 20, y = 0, relative = true, }), { repeating = true, })
-hl.bind(mainMod .. "up", hl.dsp.window.resize({ x = 0, y = -20, relative = true, }), { repeating = true, })
-hl.bind(mainMod .. "down", hl.dsp.window.resize({ x = 0, y = 20, relative = true, }), { repeating = true, })
+hl.bind(mainMod .. "H", hl.dsp.window.move({ direction = "left" }))
+hl.bind(mainMod .. "L", hl.dsp.window.move({ direction = "right" }))
+hl.bind(mainMod .. "K", hl.dsp.window.move({ direction = "up" }))
+hl.bind(mainMod .. "J", hl.dsp.window.move({ direction = "down" }))
+
+hl.bind(mainMod .. shiftMod .. "H", hl.dsp.window.resize({ x = -20, y = 0, relative = true, }), { repeating = true, })
+hl.bind(mainMod .. shiftMod .. "L", hl.dsp.window.resize({ x = 20, y = 0, relative = true, }), { repeating = true, })
+hl.bind(mainMod .. shiftMod .. "K", hl.dsp.window.resize({ x = 0, y = -20, relative = true, }), { repeating = true, })
+hl.bind(mainMod .. shiftMod .. "J", hl.dsp.window.resize({ x = 0, y = 20, relative = true }), { repeating = true })
+
+hl.bind(mainMod .. "I", function()
+    local ws = hl.get_active_workspace()
+    if ws ~= nil then
+        local workspaceName = ws.name
+        local newLayout = ws.tiled_layout == "dwindle" and "scrolling" or "dwindle"
+        hl.notification.create({ text = "Switching workspace " .. workspaceName .. " layout to " .. newLayout, duration = 3000 })
+        hl.workspace_rule({
+            workspace = workspaceName,
+            layout = newLayout,
+        })
+    end
+end)
+hl.bind(mainMod .. "O", function ()
+	local newValue = not hl.get_config("animations.enabled")
+    hl.notification.create({ text = "Animations are now " .. (newValue and "enabled" or "disabled"), duration = 3000 })
+    hl.config({
+        animations = {
+            enabled = newValue,
+        },
+	})
+end)
 
 hl.bind(mainMod .. "Z", hl.dsp.workspace.toggle_special("spotify"))
 hl.bind(mainMod .. shiftMod .. "Z", hl.dsp.window.move({ workspace = "special:spotify" }))

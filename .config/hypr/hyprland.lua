@@ -45,7 +45,8 @@ hl.on("hyprland.start", function()
     end
     if isThinkpad then
         hl.exec_cmd("ags run")
-        -- hl.exec_cmd("~/.autostart")
+        hl.exec_cmd("~/.autostart")
+        hl.exec_cmd("hypridle")
     end
 end)
 

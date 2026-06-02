@@ -162,14 +162,6 @@ hl.config({
     },
 })
 
-if isRyzenekNew then
-    hl.config({
-        input = {
-            sensitivity = -0.5,
-        },
-    })
-end
-
 hl.curve("myBezier", { type = "bezier", points = { { 0.05, 0.9 }, { 0.1, 1.05 } } })
 hl.animation({ leaf = "global", enabled = true, speed = 10, bezier = "default" })
 hl.animation({ leaf = "windows", enabled = true, speed = 7, bezier = "myBezier" })
@@ -374,7 +366,7 @@ hl.bind(mainMod .. "X", hl.dsp.exec_cmd("alacritty -e ~/.local/bin/zellij-sessio
 hl.bind(mainMod .. shiftMod .. "X", hl.dsp.exec_cmd("alacritty"))
 hl.bind(mainMod .. "B", hl.dsp.exec_cmd("zen-browser"))
 hl.bind(mainMod .. "R", hl.dsp.exec_cmd("vicinae toggle"))
-hl.bind(mainMod .. "T", hl.dsp.exec_cmd("vicinae vicinae://extensions/vicinae/core/search-emojis"))
+hl.bind(mainMod .. "T", hl.dsp.exec_cmd("vicinae vicinae://launch/core/search-emojis"))
 hl.bind(mainMod .. "E", hl.dsp.exec_cmd("thunar"))
 hl.bind(mainMod .. shiftMod .. "C", hl.dsp.exec_cmd("hyprpicker -a -n"))
 hl.bind(mainMod .. shiftMod .. "V", hl.dsp.exec_cmd("swaync-client -t"))

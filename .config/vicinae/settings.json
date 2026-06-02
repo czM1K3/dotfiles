@@ -35,11 +35,6 @@
             "vscodeFlavour": "VSCodium"
          }
       },
-      "@czM1K3/zed-recent-projects": {
-         "preferences": {
-            "zedExecutable": "zeditor"
-         }
-      },
       "@gebeto/store.raycast.translate": {
          "preferences": {
             "autoInput": false,

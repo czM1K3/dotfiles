@@ -387,7 +387,9 @@ hl.bind(mainMod .. "F", hl.dsp.window.fullscreen())
 hl.bind(mainMod .. "C", hl.dsp.window.fullscreen({ mode = "maximized" }))
 hl.bind(mainMod .. shiftMod .. "F", function()
     hl.dispatch(hl.dsp.window.fullscreen())
-    hl.dispatch(hl.dsp.send_shortcut({ mods = "CTRL + ALT", key = "code:54" })) -- 54 is "c"
+    hl.timer(function ()
+        hl.dispatch(hl.dsp.send_shortcut({ mods = "CTRL + ALT", key = "code:54" })) -- 54 is "c"
+    end, { timeout = 1, type = "oneshot" })
 end)
 hl.bind(mainMod .. "N", hl.dsp.exec_cmd("hyprlock"))
 hl.bind(mainMod .. "ESCAPE", hl.dsp.exec_cmd("wlogout --protocol layer-shell -b 6 -T 400 -B 400"))
@@ -455,7 +457,7 @@ hl.bind(mainMod .. "I", function()
     if ws ~= nil then
         local workspaceName = ws.name
         local newLayout = ws.tiled_layout == "dwindle" and "scrolling" or "dwindle"
-        hl.notification.create({ text = "Switching workspace " .. workspaceName .. " layout to " .. newLayout, duration = 3000 })
+        hl.notification.create({ text = "Switching workspace " .. workspaceName .. " layout to " .. newLayout, timeout = 3000 })
         hl.workspace_rule({
             workspace = workspaceName,
             layout = newLayout,
@@ -464,7 +466,7 @@ hl.bind(mainMod .. "I", function()
 end)
 hl.bind(mainMod .. "O", function ()
 	local newValue = not hl.get_config("animations.enabled")
-    hl.notification.create({ text = "Animations are now " .. (newValue and "enabled" or "disabled"), duration = 3000 })
+    hl.notification.create({ text = "Animations are now " .. (newValue and "enabled" or "disabled"), timeout = 3000 })
     hl.config({
         animations = {
             enabled = newValue,

@@ -27,7 +27,7 @@
    "favorites": [
       "applications:helium",
       "applications:obsidian",
-      "applications:com.github.wwmm.easyeffects"
+      "@rastsislaux/store.vicinae.pulseaudio:outputDevices"
    ],
    "providers": {
       "@ShyAssassin/store.vicinae.vscode-recents": {

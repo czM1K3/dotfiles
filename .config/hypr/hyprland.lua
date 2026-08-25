@@ -19,8 +19,8 @@ hl.on("hyprland.start", function()
     hl.exec_cmd("swaync")
     hl.exec_cmd("vicinae server")
     hl.exec_cmd("hyprpaper")
+    hl.exec_cmd("ags run -d ~/.dotfiles/ags")
     if isDesktop then
-        hl.exec_cmd("ags run -d ~/.dotfiles/ags")
         hl.timer(function()
             hl.exec_cmd("spotify-launcher")
         end, { timeout = 4000, type = "oneshot" })
@@ -35,6 +35,7 @@ hl.on("hyprland.start", function()
         end, { timeout = 300, type = "oneshot" })
         hl.timer(function()
             hl.exec_cmd("solaar --window=hide")
+            hl.exec_cmd(("systemctl --user start app-dev.lizardbyte.app.Sunshine.service"))
         end, { timeout = 3000, type = "oneshot" })
         hl.timer(function()
             hl.exec_cmd("~/AppImages/openrgb.appimage --startminimized")
@@ -44,7 +45,6 @@ hl.on("hyprland.start", function()
         hl.exec_cmd("~/.autostart")
     end
     if isThinkpad then
-        hl.exec_cmd("ags run")
         hl.exec_cmd("~/.autostart")
         hl.exec_cmd("hypridle")
     end
@@ -168,7 +168,7 @@ hl.animation({ leaf = "windows", enabled = true, speed = 7, bezier = "myBezier" 
 hl.animation({ leaf = "windowsOut", enabled = true, speed = 7, bezier = "default", style = "popin 80%" })
 hl.animation({ leaf = "border", enabled = true, speed = 10, bezier = "default" })
 hl.animation({ leaf = "fade", enabled = true, speed = 7, bezier = "default" })
-hl.animation({ leaf = "workspaces", enabled = true, speed = 3, bezier = "default", style = "slidevert" })
+hl.animation({ leaf = "workspaces", enabled = true, speed = 3, bezier = "default" })
 hl.animation({ leaf = "specialWorkspace", enabled = true, speed = 6, bezier = "default", style = "slidevert" })
 
 hl.device({
@@ -385,6 +385,7 @@ hl.bind(mainMod .. "V", hl.dsp.window.float())
 hl.bind(mainMod .. shiftMod .. "T", hl.dsp.window.pin())
 hl.bind(mainMod .. "F", hl.dsp.window.fullscreen())
 hl.bind(mainMod .. "C", hl.dsp.window.fullscreen({ mode = "maximized" }))
+hl.bind(mainMod .. "Y", hl.dsp.exec_cmd("hyprctl reload"))
 hl.bind(mainMod .. shiftMod .. "F", function()
     hl.dispatch(hl.dsp.window.fullscreen())
     hl.timer(function ()
@@ -400,6 +401,9 @@ if isRyzenekNew then
     hl.bind(mainMod .. "F10", hl.dsp.exec_cmd("ddcutil --enable-dynamic-sleep -d 1 setvcp 10 + 34"))
     hl.bind(mainMod .. "F11", hl.dsp.exec_cmd("ddcutil --enable-dynamic-sleep -d 2 setvcp 10 - 34"))
     hl.bind(mainMod .. "F12", hl.dsp.exec_cmd("ddcutil --enable-dynamic-sleep -d 2 setvcp 10 + 34"))
+    hl.bind(mainMod .. "U", function ()
+        hl.monitor({ output = "DP-2", disabled = true })
+    end)
 end
 if isRyzenekOld then
     hl.bind(mainMod .. "F9", hl.dsp.exec_cmd("ddcutil --enable-dynamic-sleep -d 1 setvcp 10 - 34"))

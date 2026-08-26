@@ -15,7 +15,6 @@ hl.on("hyprland.start", function()
     hl.exec_cmd("nm-applet --indicator")
     hl.exec_cmd("swayosd-server")
     -- hl.exec_cmd("udiskie --no-automount --no-notify --tray")
-    hl.exec_cmd("thunar --daemon")
     hl.exec_cmd("swaync")
     hl.exec_cmd("vicinae server")
     hl.exec_cmd("hyprpaper")
@@ -278,7 +277,7 @@ hl.window_rule({
 })
 hl.window_rule({
     match = {
-        class = "obsidian",
+        class = "md.obsidian.Obsidian",
     },
     opacity = 0.91
 })
@@ -367,7 +366,7 @@ hl.bind(mainMod .. shiftMod .. "X", hl.dsp.exec_cmd("alacritty"))
 hl.bind(mainMod .. "B", hl.dsp.exec_cmd("zen-browser"))
 hl.bind(mainMod .. "R", hl.dsp.exec_cmd("vicinae toggle"))
 hl.bind(mainMod .. "T", hl.dsp.exec_cmd("vicinae vicinae://launch/core/search-emojis"))
-hl.bind(mainMod .. "E", hl.dsp.exec_cmd("thunar"))
+hl.bind(mainMod .. "E", hl.dsp.exec_cmd("hyprfm"))
 hl.bind(mainMod .. shiftMod .. "C", hl.dsp.exec_cmd("hyprpicker -a -n"))
 hl.bind(mainMod .. shiftMod .. "V", hl.dsp.exec_cmd("swaync-client -t"))
 hl.bind("PRINT", hl.dsp.exec_cmd("~/.local/bin/screenshot-monitor"))

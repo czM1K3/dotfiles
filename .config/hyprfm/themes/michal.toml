@@ -1,0 +1,23 @@
+# HyprFM theme sample.
+#
+# Copy this file to "mytheme.toml" in this directory, edit the colours, then put
+#     [general]
+#     theme = "mytheme"
+# in ~/.config/hyprfm/config.toml, or pick it in Settings. Every *.toml here is
+# listed there, and a file here shadows the bundled theme of the same name.
+#
+# Any key you leave out keeps its built-in default.
+
+[colors]
+base    = "#1e1e1e"  # file view background
+mantle  = "#151518"  # toolbar, dialogs, breadcrumb
+crust   = "#111111"  # deepest layer: title bar, sidebar
+surface = "#313244"  # cards, inputs, hovered rows
+overlay = "#45475a"  # borders, separators, inactive marks
+text    = "#eeeeee"  # primary text
+subtext = "#bac2de"  # secondary text
+muted   = "#666666"  # icons, disabled text
+accent  = "#50a0ff"  # selection, focus ring, links
+success = "#a6e3a1"  # completed operations
+warning = "#f9e2af"  # warnings
+error   = "#f38ba8"  # errors, destructive actions

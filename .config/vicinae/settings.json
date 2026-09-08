@@ -10,6 +10,12 @@
 
 {
    "$schema": "https://vicinae.com/schemas/config.json",
+   "tray": {
+      "enabled": false
+   },
+   "global_shortcuts": {
+      "toggle": ""
+   },
    "font": {
       "normal": {
          "family": "FiraCode Nerd Font"
@@ -22,7 +28,8 @@
       }
    },
    "launcher_window": {
-      "opacity": 0.92
+      "opacity": 0.92,
+      "material": "blur"
    },
    "favorites": [
       "applications:helium",

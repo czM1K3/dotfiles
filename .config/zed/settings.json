@@ -50,5 +50,5 @@
   },
   "ensure_final_newline_on_save": false,
   "remove_trailing_whitespace_on_save": false,
-  "vim_mode": false
+  "vim_mode": true
 }

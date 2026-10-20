@@ -42,7 +42,7 @@ parent_fraction = 0.20000000000000001
 hidden_quick_access = [ 'Recents' ]
 position = 'left'
 visible = true
-width = 170
+width = 220
 
 [window]
 button_layout = ':minimize,maximize,close'

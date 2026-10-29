@@ -21,10 +21,17 @@ if command -sq lazygit
     end
 end
 
+if command -sq tailscale
+    alias tup "sudo systemctl start tailscaled && sudo tailscale up --accept-routes"
+    alias tdown "sudo tailscale down && sudo systemctl stop tailscaled"
+end
+
 set fish_greeting
 
-alias dockerstart "sudo systemctl start docker"
-alias dockerstop "sudo systemctl stop docker"
+if command -sq docker
+    alias dockerstart "sudo systemctl start docker"
+    alias dockerstop "sudo systemctl stop docker"
+end
 
 alias c="codium ."
 alias zz="zeditor ."

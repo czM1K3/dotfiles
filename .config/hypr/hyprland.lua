@@ -34,7 +34,7 @@ hl.on("hyprland.start", function()
         end, { timeout = 300, type = "oneshot" })
         hl.timer(function()
             hl.exec_cmd("solaar --window=hide")
-            hl.exec_cmd(("systemctl --user start app-dev.lizardbyte.app.Sunshine.service"))
+            -- hl.exec_cmd(("systemctl --user start app-dev.lizardbyte.app.Sunshine.service"))
         end, { timeout = 3000, type = "oneshot" })
         hl.timer(function()
             hl.exec_cmd("~/AppImages/openrgb.appimage --startminimized")
@@ -139,7 +139,6 @@ hl.config({
     dwindle = {
         preserve_split = true,
         smart_split = true,
-        special_scale_factor = 0.95,
     },
     xwayland = {
         force_zero_scaling = true,
@@ -200,7 +199,8 @@ hl.env("XCURSOR_SIZE", "24")
 hl.env("QT_QPA_PLATFORMTHEME", "kvantum")
 hl.env("QT_STYLE_OVERRIDE", "kvantum")
 hl.env("GTK_THEME", "Fluent-Dark-compact")
-hl.env("XDG_MENU_PREFIX", "arch-")
+hl.env("GDK_WAYLAND_DISABLE", "ext_background_effect_manager_v1")
+-- hl.env("XDG_MENU_PREFIX", "arch-")
 
 hl.layer_rule({
     match = {
@@ -254,6 +254,8 @@ if isRyzenekNew then
         default = true,
     })
 end
+
+hl.workspace_rule({ workspace = "s[true]", gaps_out = 20, gaps_in = 5 })
 
 -- Smart gaps
 hl.workspace_rule({ workspace = "w[tv1]s[false]", gaps_out = 0, gaps_in = 0 })

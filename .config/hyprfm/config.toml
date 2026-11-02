@@ -18,14 +18,23 @@ paths = [ '~/Documents', '~/Documents/Programming' ]
 [context_menu]
 
 [general]
+auto_refresh_icons = true
+builtin_terminal = true
+dark_theme = 'catppuccin-mocha'
 default_view = 'grid'
 dependency_startup_check = false
 font_family = 'FiraCode Nerd Font Mono Med'
+grid_fixed_columns = false
+hidden_last = false
 icon_theme = 'Papirus-Dark'
+light_theme = 'catppuccin-latte'
 remember_sort_per_folder = true
+right_click_to_edit_path = true
 show_hidden = true
+single_click_opens_folders = false
 sort_ascending = true
 sort_by = 'name'
+split_orientation = 'vertical'
 theme = 'michal'
 
 [list_view]
@@ -39,10 +48,19 @@ parent_fraction = 0.20000000000000001
 [shortcuts]
 
 [sidebar]
+auto_hide_width = 700
 hidden_quick_access = [ 'Recents' ]
 position = 'left'
 visible = true
-width = 220
+width = 221
+
+[terminal]
+cursor_blink = true
+cursor_style = 'block'
+font_family = 'FiraCode Nerd Font'
+font_size = 12.0
+ligatures = true
+scrollback_lines = 10000
 
 [window]
 button_layout = ':minimize,maximize,close'

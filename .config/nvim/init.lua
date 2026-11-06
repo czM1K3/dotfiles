@@ -582,19 +582,6 @@ require("lazy").setup({
 					--  the definition of its *type*, not where it was *defined*.
 					map("grt", require("telescope.builtin").lsp_type_definitions, "[G]oto [T]ype Definition")
 
-					-- This function resolves a difference between neovim nightly (version 0.11) and stable (version 0.10)
-					---@param client vim.lsp.Client
-					---@param method vim.lsp.protocol.Method
-					---@param bufnr? integer some lsp support methods only in specific files
-					---@return boolean
-					local function client_supports_method(client, method, bufnr)
-						if vim.fn.has("nvim-0.11") == 1 then
-							return client:supports_method(method, bufnr)
-						else
-							return client.supports_method(method, { bufnr = bufnr })
-						end
-					end
-
 					-- The following two autocommands are used to highlight references of the
 					-- word under your cursor when your cursor rests there for a little while.
 					--    See `:help CursorHold` for information about when this is executed
@@ -603,8 +590,7 @@ require("lazy").setup({
 					local client = vim.lsp.get_client_by_id(event.data.client_id)
 					if
 						client
-						and client_supports_method(
-							client,
+						and client:supports_method(
 							vim.lsp.protocol.Methods.textDocument_documentHighlight,
 							event.buf
 						)
@@ -638,10 +624,13 @@ require("lazy").setup({
 					-- This may be unwanted, since they displace some of your code
 					if
 						client
-						and client_supports_method(client, vim.lsp.protocol.Methods.textDocument_inlayHint, event.buf)
+						and client:supports_method(vim.lsp.protocol.Methods.textDocument_inlayHint, event.buf)
 					then
 						map("<leader>th", function()
-							vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = event.buf }))
+							vim.lsp.inlay_hint.enable(
+								not vim.lsp.inlay_hint.is_enabled({ bufnr = event.buf }),
+								{ bufnr = event.buf }
+							)
 						end, "[T]oggle Inlay [H]ints")
 					end
 				end,
@@ -682,6 +671,11 @@ require("lazy").setup({
 			--  So, we create new capabilities with blink.cmp, and then broadcast that to the servers.
 			local capabilities = require("blink.cmp").get_lsp_capabilities()
 
+			-- Broadcast blink.cmp capabilities to all LSP clients via the global config
+			vim.lsp.config("*", {
+				capabilities = capabilities,
+			})
+
 			-- Enable the following language servers
 			--  Feel free to add/remove any LSPs that you want here. They will automatically be installed.
 			--
@@ -694,16 +688,9 @@ require("lazy").setup({
 			local servers = {
 				-- clangd = {},
 				-- gopls = {},
-				-- pyright = {},
+				pyright = {},
 				-- rust_analyzer = {},
-				-- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
-				--
-				-- Some languages (like typescript) have entire language plugins that can be useful:
-				--    https://github.com/pmizio/typescript-tools.nvim
-				--
-				-- But for many setups, the LSP (`ts_ls`) will work just fine
 				-- ts_ls = {},
-				--
 
 				lua_ls = {
 					-- cmd = { ... },
@@ -741,19 +728,17 @@ require("lazy").setup({
 			require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
 
 			require("mason-lspconfig").setup({
-				ensure_installed = {}, -- explicitly set to an empty table (Kickstart populates installs via mason-tool-installer)
-				automatic_installation = false,
-				handlers = {
-					function(server_name)
-						local server = servers[server_name] or {}
-						-- This handles overriding only values explicitly passed
-						-- by the server configuration above. Useful when disabling
-						-- certain features of an LSP (for example, turning off formatting for ts_ls)
-						server.capabilities = vim.tbl_deep_extend("force", {}, capabilities, server.capabilities or {})
-						require("lspconfig")[server_name].setup(server)
-					end,
+				-- Stylua is a formatter rather than an LSP server; exclude it from automatic_enable
+				-- so Neovim doesn't attempt to run it as an LSP server and crash.
+				automatic_enable = {
+					exclude = { "stylua" },
 				},
 			})
+
+			for name, server in pairs(servers) do
+				vim.lsp.config(name, server)
+				vim.lsp.enable(name)
+			end
 		end,
 	},
 
@@ -952,7 +937,14 @@ require("lazy").setup({
 			--  - va)  - [V]isually select [A]round [)]paren
 			--  - yinq - [Y]ank [I]nside [N]ext [Q]uote
 			--  - ci'  - [C]hange [I]nside [']quote
-			require("mini.ai").setup({ n_lines = 500 })
+			require("mini.ai").setup({
+				-- Avoid conflicts with built-in incremental selection mappings on Neovim>=0.12
+				mappings = {
+					around_next = "aa",
+					inside_next = "ii",
+				},
+				n_lines = 500,
+			})
 
 			-- Add/delete/replace surroundings (brackets, quotes, etc.)
 			--

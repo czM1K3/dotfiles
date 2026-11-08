@@ -45,7 +45,8 @@
       },
       "@c4n4m1/store.vicinae.zoxide-recent-directories": {
          "preferences": {
-            "application": "thunar"
+            "application": "io.github.soyeb_jim285.HyprFM.desktop",
+            "defaultFilter": "all"
          }
       },
       "@gebeto/store.raycast.translate": {
@@ -54,6 +55,28 @@
             "defaultAction": "copy",
             "lang1": "auto",
             "lang2": "en"
+         }
+      },
+      "@mrmartineau/store.raycast.search-npm": {
+         "preferences": {
+            "defaultCopyAction": "bun",
+            "secondaryCopyAction": "pnpm",
+            "defaultOpenAction": "openRepository",
+            "historyCount": "30",
+            "showLinkToSearchResultsInListView": true
+         }
+      },
+      "ai": {
+         "preferences": {
+            "providers": {
+               "claude-code": {
+                  "type": "claude-code",
+                  "fields": {}
+               }
+            },
+            "defaultModel": "claude-code:haiku",
+            "instructions": "",
+            "enableTools": true
          }
       },
       "applications": {

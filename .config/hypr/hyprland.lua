@@ -16,7 +16,7 @@ hl.on("hyprland.start", function()
     hl.exec_cmd("swayosd-server")
     -- hl.exec_cmd("udiskie --no-automount --no-notify --tray")
     hl.exec_cmd("swaync")
-    hl.exec_cmd("vicinae server")
+    hl.exec_cmd("vicinae server --config ~/.dotfiles/.config/vicinae/settings.json")
     hl.exec_cmd("hyprpaper")
     hl.exec_cmd("ags run -d ~/.dotfiles/ags")
     if isDesktop then

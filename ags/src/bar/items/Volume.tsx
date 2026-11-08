@@ -13,7 +13,7 @@ const onPressed = (ctrl: Gtk.GestureClick) => {
 	]).catch(console.error);
 };
 
-const icon = (volume: number, mute: boolean) => {
+export const volumeIcon = (volume: number, mute: boolean) => {
 	if (mute || volume <= 0) return "󰝟";
 	if (volume < 0.34) return "󰕿";
 	if (volume < 0.67) return "󰖀";
@@ -36,7 +36,7 @@ export const Volume = () => {
 			<Meter
 				name="volume"
 				modifiers={mute.as((m) => (m ? "muted" : ""))}
-				icon={createComputed(() => icon(v(), mute() ?? false))}
+				icon={createComputed(() => volumeIcon(v(), mute() ?? false))}
 				fraction={volume.as((x) => x ?? 0)}
 				label={volume.as((x) => `${Math.round((x ?? 0) * 100)}%`)}
 				onPressed={onPressed}

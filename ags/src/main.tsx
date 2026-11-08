@@ -1,8 +1,11 @@
 import app from "ags/gtk4/app";
 import { createBinding, For, onCleanup, This } from "ags";
 import { Bar } from "./bar/Bar";
+import { Osd } from "./osd/Osd";
 
 export const main = () => {
+	Osd();
+
 	const monitors = createBinding(app, "monitors");
 
 	return (

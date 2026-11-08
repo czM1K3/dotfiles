@@ -13,7 +13,6 @@ hl.on("hyprland.start", function()
     hl.exec_cmd("/usr/lib/pam_kwallet_init")
     hl.exec_cmd("wlsunset -l 49.75 -L 16.47 -t 5000 -d 1800")
     hl.exec_cmd("nm-applet --indicator")
-    hl.exec_cmd("swayosd-server")
     -- hl.exec_cmd("udiskie --no-automount --no-notify --tray")
     hl.exec_cmd("swaync")
     hl.exec_cmd("vicinae server --config ~/.dotfiles/.config/vicinae/settings.json")
@@ -213,6 +212,13 @@ hl.layer_rule({
         namespace = "bar",
     },
     blur = true,
+})
+hl.layer_rule({
+    match = {
+        namespace = "osd",
+    },
+    blur = true,
+    ignore_alpha = 0,
 })
 hl.layer_rule({
     match = {
@@ -419,17 +425,16 @@ if isRyzenekOld then
     hl.bind(mainMod .. "F10", hl.dsp.exec_cmd("ddcutil --enable-dynamic-sleep -d 1 setvcp 10 + 34"))
 end
 
-hl.bind("XF86AudioRaiseVolume", hl.dsp.exec_cmd("swayosd-client --output-volume raise"),
+hl.bind("XF86AudioRaiseVolume", hl.dsp.exec_cmd("wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+"),
     { locked = true, repeating = true, ignore_mods = true, })
-hl.bind("XF86AudioLowerVolume", hl.dsp.exec_cmd("swayosd-client --output-volume lower"),
+hl.bind("XF86AudioLowerVolume", hl.dsp.exec_cmd("wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%-"),
     { locked = true, repeating = true, ignore_mods = true, })
-hl.bind("XF86AudioMute", hl.dsp.exec_cmd("swayosd-client --output-volume mute-toggle"),
+hl.bind("XF86AudioMute", hl.dsp.exec_cmd("wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"),
     { locked = true, ignore_mods = true, })
-hl.bind("XF86AudioMicMute", hl.dsp.exec_cmd("swayosd-client --input-volume mute-toggle"),
+hl.bind("XF86AudioMicMute", hl.dsp.exec_cmd("wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"),
     { locked = true, ignore_mods = true, })
-hl.bind("XF86MonBrightnessUp", hl.dsp.exec_cmd("swayosd-client --brightness raise"), { locked = true, repeating = true, ignore_mods = true, })
-hl.bind("XF86MonBrightnessDown", hl.dsp.exec_cmd("swayosd-client --brightness lower"), { locked = true, repeating = true, ignore_mods = true, })
--- hl.bind("Caps_Lock", hl.dsp.exec_cmd("swayosd-client --caps-lock"), { locked = true, ignore_mods = true, })
+hl.bind("XF86MonBrightnessUp", hl.dsp.exec_cmd("brightnessctl set 5%+"), { locked = true, repeating = true, ignore_mods = true, })
+hl.bind("XF86MonBrightnessDown", hl.dsp.exec_cmd("brightnessctl set 5%-"), { locked = true, repeating = true, ignore_mods = true, })
 hl.bind(mainMod .. "SLASH", hl.dsp.exec_cmd("waybar-mpris --send toggle || playerctl play-pause"))
 hl.bind("XF86AudioPlay", hl.dsp.exec_cmd("waybar-mpris --send toggle || playerctl play-pause"),
     { locked = true, repeating = true, ignore_mods = true, })

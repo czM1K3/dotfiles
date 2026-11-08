@@ -34,3 +34,8 @@ opacity = 0.8
 [window.dimensions]
 columns = 85
 lines = 25
+
+[[keyboard.bindings]]
+key = "Return"
+mods = "Shift"
+chars = "\u001B\r"

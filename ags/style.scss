@@ -47,6 +47,50 @@ window.Bar {
 			}
 		}
 
+		&.battery {
+			.icon {
+				padding-right: 6px;
+			}
+
+			progressbar.level {
+				min-height: 18px;
+
+				trough {
+					min-width: 90px;
+					min-height: 18px;
+					border-radius: 9px;
+					background-color: rgba(10%, 10%, 10%, 0.5);
+				}
+				progress {
+					min-height: 18px;
+					border-radius: 9px;
+					background-color: #1fd18c;
+				}
+			}
+
+			.percentage {
+				font-size: 11px;
+				text-shadow: 0 0 3px rgba(0, 0, 0, 0.8);
+			}
+
+			.rate {
+				padding-left: 8px;
+				font-size: 11px;
+			}
+
+			&.charging progressbar.level progress {
+				background-color: #7cc7ff;
+			}
+
+			&.low progressbar.level progress {
+				background-color: #ff8a8a;
+			}
+
+			&.pending-charge {
+				background-color: rgba(#e01b24, 0.85);
+			}
+		}
+
 		&.notifications {
 			.icon {
 				padding-right: 8px;

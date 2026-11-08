@@ -47,7 +47,18 @@ window.Bar {
 			}
 		}
 
-		&.battery {
+		&.meter {
+			$fill: (
+				battery: #1fd18c,
+				volume: #b48cff,
+				brightness: #ffc857,
+			);
+			@each $name, $color in $fill {
+				&.#{$name} progressbar.level progress {
+					background-color: $color;
+				}
+			}
+
 			.icon {
 				padding-right: 6px;
 			}
@@ -64,7 +75,6 @@ window.Bar {
 				progress {
 					min-height: 18px;
 					border-radius: 9px;
-					background-color: #1fd18c;
 				}
 			}
 
@@ -78,16 +88,23 @@ window.Bar {
 				font-size: 11px;
 			}
 
-			&.charging progressbar.level progress {
-				background-color: #7cc7ff;
+			&.muted {
+				color: rgb(70%, 70%, 70%);
+				progressbar.level progress {
+					background-color: rgba(60%, 60%, 60%, 0.6);
+				}
 			}
 
-			&.low progressbar.level progress {
-				background-color: #ff8a8a;
-			}
-
-			&.pending-charge {
-				background-color: rgba(#e01b24, 0.85);
+			&.battery {
+				&.charging progressbar.level progress {
+					background-color: #7cc7ff;
+				}
+				&.low progressbar.level progress {
+					background-color: #ff8a8a;
+				}
+				&.pending-charge {
+					background-color: rgba(#e01b24, 0.85);
+				}
 			}
 		}
 

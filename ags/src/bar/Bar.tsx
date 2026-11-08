@@ -8,6 +8,8 @@ import { Notifications } from "./items/Notifications";
 import { Keyboard } from "./items/Keyboard";
 import { Tray } from "./items/Tray";
 import { Battery } from "./items/Battery";
+import { Volume } from "./items/Volume";
+import { Brightness } from "./items/Brightness";
 
 type BarProps = JSX.IntrinsicElements["window"] & {
 	gdkmonitor: Gdk.Monitor;
@@ -38,6 +40,8 @@ export const Bar = ({ gdkmonitor, $ }: BarProps) => {
 				</box>
 				<box $type="end">
 					<Keyboard />
+					<Volume />
+					<Brightness />
 					<Battery />
 					<Tray />
 					<Gamemode />

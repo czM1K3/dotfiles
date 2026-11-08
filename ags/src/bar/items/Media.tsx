@@ -20,7 +20,7 @@ export const Media = ({ media }: MediaProps) => {
               await execAsync("waybar-mpris --send toggle")
               break;
             case Gdk.BUTTON_SECONDARY:
-              execAsync("hyprctl dispatch togglespecialworkspace spotify");
+              execAsync("hyprctl dispatch 'hl.dsp.workspace.toggle_special(\"spotify\")'");
               break;
           }
         }}

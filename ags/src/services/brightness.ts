@@ -2,7 +2,6 @@ import Gio from "gi://Gio";
 import GLib from "gi://GLib";
 import type { Accessor } from "ags";
 import { createState } from "ags";
-import { monitorFile } from "ags/file";
 
 const BACKLIGHT_DIR = "/sys/class/backlight";
 const decoder = new TextDecoder();
@@ -40,6 +39,8 @@ const findBacklight = (): { path: string; max: number } | null => {
 
 const backlight = findBacklight();
 
+const monitors: Gio.FileMonitor[] = [];
+
 const createBrightness = (): Accessor<number> | null => {
 	if (!backlight) return null;
 
@@ -52,7 +53,22 @@ const createBrightness = (): Accessor<number> | null => {
 	};
 
 	const [value, setValue] = createState(read());
-	monitorFile(file, () => setValue(read()));
+
+	// GIO coalesces events to one per 800 ms by default, which makes rapid
+	// changes feel laggy. Watch both files: "brightness" fires immediately
+	// on write, "actual_brightness" once the panel has applied the value.
+	for (const name of ["brightness", "actual_brightness"]) {
+		try {
+			const monitor = Gio.File.new_for_path(
+				`${backlight.path}/${name}`,
+			).monitor_file(Gio.FileMonitorFlags.NONE, null);
+			monitor.set_rate_limit(1);
+			monitor.connect("changed", () => setValue(read()));
+			monitors.push(monitor); // keep a reference so it isn't collected
+		} catch (e) {
+			console.error(`Cannot monitor ${name}:`, e);
+		}
+	}
 	return value;
 };
 

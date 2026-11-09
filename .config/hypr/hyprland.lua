@@ -18,6 +18,7 @@ hl.on("hyprland.start", function()
     hl.exec_cmd("vicinae server --config ~/.dotfiles/.config/vicinae/settings.json")
     hl.exec_cmd("hyprpaper")
     hl.exec_cmd("ags run -d ~/.dotfiles/ags")
+    hl.exec_cmd("~/.local/bin/mpris-daemon")
     if isDesktop then
         hl.timer(function()
             hl.exec_cmd("spotify-launcher")
@@ -435,14 +436,16 @@ hl.bind("XF86AudioMicMute", hl.dsp.exec_cmd("wpctl set-mute @DEFAULT_AUDIO_SOURC
     { locked = true, ignore_mods = true, })
 hl.bind("XF86MonBrightnessUp", hl.dsp.exec_cmd("brightnessctl set 5%+"), { locked = true, repeating = true, ignore_mods = true, })
 hl.bind("XF86MonBrightnessDown", hl.dsp.exec_cmd("brightnessctl set 5%-"), { locked = true, repeating = true, ignore_mods = true, })
-hl.bind(mainMod .. "SLASH", hl.dsp.exec_cmd("waybar-mpris --send toggle || playerctl play-pause"))
-hl.bind("XF86AudioPlay", hl.dsp.exec_cmd("waybar-mpris --send toggle || playerctl play-pause"),
+hl.bind(mainMod .. "SLASH", hl.dsp.exec_cmd("~/.local/bin/mpris-ctl play-pause || playerctl play-pause"))
+hl.bind("XF86AudioPlay", hl.dsp.exec_cmd("~/.local/bin/mpris-ctl play-pause || playerctl play-pause"),
     { locked = true, repeating = true, ignore_mods = true, })
-hl.bind(mainMod .. "PERIOD", hl.dsp.exec_cmd("waybar-mpris --send next || playerctl next"))
-hl.bind("XF86AudioNext", hl.dsp.exec_cmd("waybar-mpris --send next || playerctl next"),
+hl.bind(mainMod .. "PERIOD", hl.dsp.exec_cmd("~/.local/bin/mpris-ctl next || playerctl next"))
+hl.bind(mainMod .. shiftMod .. "PERIOD", hl.dsp.exec_cmd("~/.local/bin/mpris-ctl next-player"))
+hl.bind("XF86AudioNext", hl.dsp.exec_cmd("~/.local/bin/mpris-ctl next || playerctl next"),
     { locked = true, repeating = true, ignore_mods = true, })
-hl.bind(mainMod .. "COMMA", hl.dsp.exec_cmd("waybar-mpris --send prev || playerctl previous"))
-hl.bind("XF86AudioPrev", hl.dsp.exec_cmd("waybar-mpris --send prev || playerctl previous"),
+hl.bind(mainMod .. "COMMA", hl.dsp.exec_cmd("~/.local/bin/mpris-ctl previous || playerctl previous"))
+hl.bind(mainMod .. shiftMod .. "COMMA", hl.dsp.exec_cmd("~/.local/bin/mpris-ctl prev-player"))
+hl.bind("XF86AudioPrev", hl.dsp.exec_cmd("~/.local/bin/mpris-ctl previous || playerctl previous"),
     { locked = true, repeating = true, ignore_mods = true })
 hl.bind("XF86Tools", hl.dsp.exec_cmd("blueberry"), { locked = true, repeating = true, ignore_mods = true, })
 hl.bind("XF86Favorites", hl.dsp.exec_cmd("spotify-launcher"),

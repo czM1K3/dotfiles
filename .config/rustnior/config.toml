@@ -1,0 +1,32 @@
+zoom-mode = "smart"
+fit-on-fullscreen = true
+smooth-images = true
+show-hidden = false
+sort-by = "name"
+sort-descending = false
+confirm-delete = true
+on-modified = "ask"
+reload-on-save = true
+jpeg-quality = 90
+png-compression = 9
+wheel = "zoom"
+double-click = "fullscreen"
+slideshow-seconds = 1
+theme = "system"
+background = "#111111cc"
+checkerboard = true
+show-toolbar = true
+show-statusbar = false
+show-thumbnails = false
+start-maximized = false
+cache-mib = 768
+preload = 2
+
+[window]
+width = 1000
+height = 700
+maximized = true
+monitor-width = 2560
+monitor-height = 1440
+
+[shortcuts]
